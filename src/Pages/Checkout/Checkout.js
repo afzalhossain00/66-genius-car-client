@@ -24,6 +24,33 @@ const Checkout = () => {
             phone,
             message
         }
+
+        // for validation
+
+        // if (phone.length > 10) {
+        //     alert('Phone number should be 10 characters or longer')
+        // }
+        // else {
+
+        // }
+
+        fetch('http://localhost:5000/orders', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged) {
+                    alert('Order placed successfully')
+                    form.reset()
+                }
+            })
+            .catch(error => console.error(error))
+
     }
 
     return (
@@ -34,10 +61,10 @@ const Checkout = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                     <input name='firstName' type="text" placeholder="First Name" className="input input-bordered input-ghost w-full" />
                     <input name='lastName' type="text" placeholder="Last Name" className="input input-ghost input-bordered w-full" />
-                    <input name='phone' type="text" placeholder="Your Phone" className="input input-ghost input-bordered w-full" />
+                    <input name='phone' type="text" placeholder="Your Phone" className="input input-ghost input-bordered w-full" required />
                     <input name='email' type="text" placeholder="Your email" defaultValue={user?.email} className="input input-ghost input-bordered w-full" readOnly />
                 </div>
-                <textarea name='message' className="textarea textarea-bordered h-24 w-full" placeholder="Your message"></textarea>
+                <textarea name='message' className="textarea textarea-bordered h-24 w-full" placeholder="Your message" required></textarea>
                 <input name='' className='btn' type="submit" value="Place your order" />
             </form>
         </div>
