@@ -38,10 +38,9 @@ const Login = () => {
                         console.log(data);
 
                         // local storage is the easiest but not the best place to store jwt token
-                        localStorage.setItem('geniustoken', data.token)
+                        localStorage.setItem('genius-token', data.token)
+                        navigate(from, { replace: true });
                     })
-
-                // navigate(from, { replace: true });
             })
             .catch(error => console.error(error))
 
